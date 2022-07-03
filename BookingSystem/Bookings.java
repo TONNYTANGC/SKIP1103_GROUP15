@@ -958,7 +958,7 @@ public class Bookings extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (numOfHall == 50) {
             JOptionPane.showMessageDialog(null, "EXCEED LIMIT!");
-            clearfield();
+            clearHallfield();
             return;
         }
         try {
