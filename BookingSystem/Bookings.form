@@ -1124,7 +1124,7 @@
             <Component class="javax.swing.JLabel" name="jLabel24">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/BookingSystem/Green Textured Watercolour Gener.png"/>
+                  <Image iconType="3" name="/BookingSystem/Reference_for_halls.png"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -1138,9 +1138,8 @@
         <Component class="javax.swing.JLabel" name="jLabel22">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/BookingSystem/Screenshot 2022-07-01 232314.jpg"/>
+              <Image iconType="3" name="/BookingSystem/management_background.jpg"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="jLabel22"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

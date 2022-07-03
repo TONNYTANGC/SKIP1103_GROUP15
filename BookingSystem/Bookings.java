@@ -604,13 +604,12 @@ public class Bookings extends javax.swing.JFrame {
 
         jPanel7.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 680, 230));
 
-        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BookingSystem/Green Textured Watercolour Gener.png"))); // NOI18N
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BookingSystem/Reference_for_halls.png"))); // NOI18N
         jPanel7.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 230, 320));
 
         jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 730, 640));
 
-        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BookingSystem/Screenshot 2022-07-01 232314.jpg"))); // NOI18N
-        jLabel22.setText("jLabel22");
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BookingSystem/management_background.jpg"))); // NOI18N
         jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 700));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 700));
@@ -796,7 +795,6 @@ public class Bookings extends javax.swing.JFrame {
                 numOfBookings--;
                 bookinglist.delete(selectedRow);
                 dtm.setRowCount(numOfBookings); //display at jtable
-                
 
             } else {
                 if (bookingTable.getSelectedRowCount() == 0) { //if table is empty
@@ -847,6 +845,11 @@ public class Bookings extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
+        if (numOfBookings == 50) {
+            JOptionPane.showMessageDialog(null, "EXCEED LIMIT!");
+            clearfield();
+            return;
+        }
         try {
 
             String hall = this.txtHall.getText();
@@ -953,6 +956,11 @@ public class Bookings extends javax.swing.JFrame {
 
     private void btnAddHallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddHallActionPerformed
         // TODO add your handling code here:
+        if (numOfHall == 50) {
+            JOptionPane.showMessageDialog(null, "EXCEED LIMIT!");
+            clearfield();
+            return;
+        }
         try {
 
             String college = this.cbCollege.getSelectedItem().toString();
