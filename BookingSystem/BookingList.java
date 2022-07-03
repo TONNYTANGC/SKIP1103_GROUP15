@@ -24,7 +24,7 @@ public class BookingList {
     }
 
     public void delete(int row) {
-        bookinglist[row + 1] = bookinglist[count - 1];//row got probelm array out of bounds
+        bookinglist[row + 1] = bookinglist[count - 1];
         count--;
 
     }
@@ -35,7 +35,7 @@ public class BookingList {
 
     public int search(String user) {
 
-        int loc = 0;
+        int loc = -1;
 
         for (int i = 0; i < count; i++) {
             if (bookinglist[i].getUser().equalsIgnoreCase(user)) {

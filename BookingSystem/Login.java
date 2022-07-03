@@ -40,7 +40,6 @@ public class Login extends javax.swing.JFrame {
         btnReset = new javax.swing.JButton();
         txtExit = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jSpinField1 = new com.toedter.components.JSpinField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -126,7 +125,6 @@ public class Login extends javax.swing.JFrame {
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BookingSystem/login_background.jpg"))); // NOI18N
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 700, 460));
-        jPanel1.add(jSpinField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 250, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 510));
 
@@ -144,6 +142,8 @@ public class Login extends javax.swing.JFrame {
             jPassword.setText(null);
             Bookings c = new Bookings();
             c.show();
+            c.otherinterface();
+           
             dispose();
         } else if (username.contains("null") && password.contains("null")) {
             JOptionPane.showMessageDialog(rootPane, "Please enter your username and password!!!");
@@ -222,7 +222,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField jPassword;
-    private com.toedter.components.JSpinField jSpinField1;
     private javax.swing.JButton txtExit;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables

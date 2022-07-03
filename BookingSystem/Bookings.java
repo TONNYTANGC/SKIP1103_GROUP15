@@ -22,12 +22,15 @@ import javax.swing.table.TableRowSorter;
  * @author User
  */
 public class Bookings extends javax.swing.JFrame {
-    
-    DefaultTableModel dtm;
+
+    DefaultTableModel dtm, dtmH;
     int row, column;
+    int rowH, columnH;
     private static int numOfBookings = 0;
-    
+    private static int numOfHall = 0;
+
     final static BookingList bookinglist = new BookingList(50); // array set to 50 maximum
+    final static HallList hallslist = new HallList(50);
     SimpleDateFormat dFormat = new SimpleDateFormat("dd-MM-yyyy");
     SimpleDateFormat tFormat = new SimpleDateFormat("HH:mm");
     private static final DecimalFormat df = new DecimalFormat("0.00");
@@ -37,11 +40,16 @@ public class Bookings extends javax.swing.JFrame {
      */
     public Bookings() {
         initComponents();
-        
+
         dtm = (DefaultTableModel) this.bookingTable.getModel();
         bookingTable.setModel(dtm);
         this.setLocationRelativeTo(null);
         bookingTable.setAutoCreateRowSorter(true);
+
+        dtmH = (DefaultTableModel) this.hallTable.getModel();
+        hallTable.setModel(dtmH);
+        this.setLocationRelativeTo(null);
+        hallTable.setAutoCreateRowSorter(true);
     }
 
     /**
@@ -62,11 +70,10 @@ public class Bookings extends javax.swing.JFrame {
         btnReser = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        cbRoom = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         txtUser = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        cbCareer = new javax.swing.JComboBox<>();
+        cbCategory = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         dateChooser = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
@@ -81,6 +88,7 @@ public class Bookings extends javax.swing.JFrame {
         endingSpin = new javax.swing.JSpinner(sm1);
         jLabel9 = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
+        txtHall = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         txtDuration = new javax.swing.JTextField();
@@ -94,9 +102,36 @@ public class Bookings extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         btnCalculate = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
-        btnLogout = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        cbCollege = new javax.swing.JComboBox<>();
+        txtVenue = new javax.swing.JTextField();
+        txtLevel = new javax.swing.JTextField();
+        txtCapacity = new javax.swing.JTextField();
+        txtPrice = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        btnAddHall = new javax.swing.JButton();
+        jLabel20 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        hallTable = new javax.swing.JTable();
+        btnUpdateHall = new javax.swing.JButton();
+        btnDelHall = new javax.swing.JButton();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        btnLogout = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -194,7 +229,7 @@ public class Bookings extends javax.swing.JFrame {
                 txtUpdateActionPerformed(evt);
             }
         });
-        jPanel3.add(txtUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, 90, 30));
+        jPanel3.add(txtUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 20, 220, 30));
 
         btnDelete.setBackground(new java.awt.Color(16, 67, 99));
         btnDelete.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -205,7 +240,7 @@ public class Bookings extends javax.swing.JFrame {
                 btnDeleteActionPerformed(evt);
             }
         });
-        jPanel3.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 90, 30));
+        jPanel3.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, 220, 30));
 
         btnReser.setBackground(new java.awt.Color(16, 67, 99));
         btnReser.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -216,9 +251,9 @@ public class Bookings extends javax.swing.JFrame {
                 btnReserActionPerformed(evt);
             }
         });
-        jPanel3.add(btnReser, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 80, 30));
+        jPanel3.add(btnReser, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 220, 30));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 590, 560, 60));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 590, 820, 60));
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -228,10 +263,6 @@ public class Bookings extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("HALL");
         jPanel5.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 90, -1));
-
-        cbRoom.setForeground(new java.awt.Color(16, 67, 99));
-        cbRoom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DKG 4/1", "DKG 4/2", "DKG 4/3", "DKG 4/4", "DKG 4/5", "DKG 4/6" }));
-        jPanel5.add(cbRoom, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 141, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
@@ -243,16 +274,16 @@ public class Bookings extends javax.swing.JFrame {
                 txtUserActionPerformed(evt);
             }
         });
-        jPanel5.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 141, -1));
+        jPanel5.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 141, 30));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("CATEGORY");
         jPanel5.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 115, -1));
 
-        cbCareer.setForeground(new java.awt.Color(16, 67, 99));
-        cbCareer.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lecturer", "Students" }));
-        jPanel5.add(cbCareer, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 141, -1));
+        cbCategory.setForeground(new java.awt.Color(16, 67, 99));
+        cbCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UUM Staff", "Non UUM Staff" }));
+        jPanel5.add(cbCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 141, 30));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
@@ -303,6 +334,7 @@ public class Bookings extends javax.swing.JFrame {
             }
         });
         jPanel5.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 310, 30));
+        jPanel5.add(txtHall, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 140, 30));
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 358, 290));
 
@@ -389,17 +421,6 @@ public class Bookings extends javax.swing.JFrame {
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1608, 635, -1, -1));
 
-        btnLogout.setBackground(new java.awt.Color(16, 67, 99));
-        btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnLogout.setForeground(new java.awt.Color(255, 255, 255));
-        btnLogout.setText("Logout");
-        btnLogout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogoutActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 590, 150, 70));
-
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -410,62 +431,282 @@ public class Bookings extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BookingSystem/booking_background.jpg"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 700));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, -1));
+
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel7.setBackground(new java.awt.Color(218, 216, 216, 40));
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel17.setText("CAPACITY : ");
+        jPanel8.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("COLLEGE : ");
+        jPanel8.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
+
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel19.setText("PRICE PER HOUR : ");
+        jPanel8.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, -1, -1));
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel16.setText("VENUE : ");
+        jPanel8.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel18.setText("LEVEL : ");
+        jPanel8.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
+
+        cbCollege.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CAS", "COB", "COLGIS" }));
+        cbCollege.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCollegeActionPerformed(evt);
+            }
+        });
+        jPanel8.add(cbCollege, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 200, -1));
+        jPanel8.add(txtVenue, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 200, -1));
+        jPanel8.add(txtLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 200, -1));
+
+        txtCapacity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCapacityActionPerformed(evt);
+            }
+        });
+        jPanel8.add(txtCapacity, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 200, -1));
+        jPanel8.add(txtPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 200, -1));
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel21.setText("Information ");
+        jPanel8.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, -1, -1));
+
+        btnAddHall.setBackground(new java.awt.Color(16, 67, 99));
+        btnAddHall.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddHall.setText("Add");
+        btnAddHall.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddHallActionPerformed(evt);
+            }
+        });
+        jPanel8.add(btnAddHall, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 340, -1));
+
+        jPanel7.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 400, 320));
+
+        jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setText("Lecture Hall Registration ");
+        jPanel7.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, -1, -1));
+
+        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        hallTable.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        hallTable.setForeground(new java.awt.Color(16, 67, 99));
+        hallTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "College", "Venue", "Level", "Capacity", "Price (per hour)"
+            }
+        ));
+        hallTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                hallTableMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(hallTable);
+
+        jPanel9.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 660, 150));
+
+        btnUpdateHall.setBackground(new java.awt.Color(16, 67, 99));
+        btnUpdateHall.setForeground(new java.awt.Color(255, 255, 255));
+        btnUpdateHall.setText("Update");
+        btnUpdateHall.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateHallActionPerformed(evt);
+            }
+        });
+        jPanel9.add(btnUpdateHall, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 190, 170, 30));
+
+        btnDelHall.setBackground(new java.awt.Color(16, 67, 99));
+        btnDelHall.setForeground(new java.awt.Color(255, 255, 255));
+        btnDelHall.setText("Delete");
+        btnDelHall.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelHallActionPerformed(evt);
+            }
+        });
+        jPanel9.add(btnDelHall, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, 170, 30));
+
+        jLabel23.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel23.setText("Table of Registered Hall");
+        jPanel9.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, -1, -1));
+
+        jPanel7.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 680, 230));
+
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BookingSystem/Green Textured Watercolour Gener.png"))); // NOI18N
+        jPanel7.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 230, 320));
+
+        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 730, 640));
+
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BookingSystem/Screenshot 2022-07-01 232314.jpg"))); // NOI18N
+        jLabel22.setText("jLabel22");
+        jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 700));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 700));
+
+        jMenu1.setForeground(new java.awt.Color(16, 67, 99));
+        jMenu1.setText("Hall Management");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setForeground(new java.awt.Color(16, 67, 99));
+        jMenu2.setText("Hall Booking");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu2);
+
+        btnLogout.setForeground(new java.awt.Color(16, 67, 99));
+        btnLogout.setText("Logout");
+        btnLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLogoutMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(btnLogout);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    public void clearfield() {      
-        cbRoom.setSelectedIndex(0);
+    public void clearfield() {
+        txtHall.setText("");
         txtUser.setText("");
-        cbCareer.setSelectedIndex(0);
+        cbCategory.setSelectedIndex(0);
         txtDuration.setText("");
         txtDiscount.setText("");
         txtCost.setText("");
         txtSearch.setText("");
+
     }
+
+    public void clearHallfield() {
+        cbCollege.setSelectedIndex(0);
+        txtVenue.setText("");
+        txtLevel.setText("");
+        txtCapacity.setText("");
+        txtPrice.setText("");
+    }
+
+    public void otherinterface() {
+        jPanel1.setVisible(false);
+        jPanel2.setVisible(true);
+    }
+
     private void bookingTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookingTableMouseClicked
         // TODO add your handling code here:
         row = bookingTable.getSelectedRow(); //GET COLUMN AND ROW
         column = bookingTable.getColumnCount();
         System.out.println(row + ", " + column);
-        String room = dtm.getValueAt(row, 0).toString();
-        for (int i = 0; i < cbRoom.getItemCount(); i++) { //combo box can display the previous choice 
-            if (cbRoom.getItemAt(i).equalsIgnoreCase(room)) {
-                cbRoom.setSelectedIndex(i);
-            }
-        }
-        
+        txtHall.setText(dtm.getValueAt(row, 0).toString());
         txtUser.setText(dtm.getValueAt(row, 1).toString());
-        
-        String career = dtm.getValueAt(row, 2).toString();
-        for (int i = 0; i < cbCareer.getItemCount(); i++) { //combo box can display the previous choice 
-            if (cbCareer.getItemAt(i).equalsIgnoreCase(career)) {
-                cbCareer.setSelectedIndex(i);
+
+        String category = dtm.getValueAt(row, 2).toString();
+        for (int i = 0; i < cbCategory.getItemCount(); i++) { //combo box can display the previous choice 
+            if (cbCategory.getItemAt(i).equalsIgnoreCase(category)) {
+                cbCategory.setSelectedIndex(i);
             }
         }
-        
+
         try {
             Date date = new SimpleDateFormat("dd-MM-yyyy").parse((String) dtm.getValueAt(row, 3).toString());
             dateChooser.setDate(date);
         } catch (ParseException ex) {
             java.util.logging.Logger.getLogger(Bookings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
+
         try {
             Date start = new SimpleDateFormat("HH:mm").parse((String) dtm.getValueAt(row, 4).toString());
             startingSpin.setValue(start);
         } catch (ParseException ex) {
             java.util.logging.Logger.getLogger(Bookings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
+
         try {
             Date end = new SimpleDateFormat("HH:mm").parse((String) dtm.getValueAt(row, 5).toString());
             endingSpin.setValue(end);
         } catch (ParseException ex) {
             java.util.logging.Logger.getLogger(Bookings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
+
         txtDuration.setText(dtm.getValueAt(row, 6).toString());
         txtDiscount.setText(dtm.getValueAt(row, 7).toString());
         txtCost.setText(dtm.getValueAt(row, 8).toString());
@@ -481,60 +722,51 @@ public class Bookings extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtSearchActionPerformed
 
-    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        // TODO add your handling code here:
-        Login lg = new Login();
-        lg.show();
-        
-        dispose();
-    }//GEN-LAST:event_btnLogoutActionPerformed
-
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
         String search = txtSearch.getText();
-        
+
         int j = bookinglist.search(search);
-        
-        String room = dtm.getValueAt(j, 0).toString();
-        for (int i = 0; i < cbRoom.getItemCount(); i++) { //combo box can display the previous choice 
-            if (cbRoom.getItemAt(i).equalsIgnoreCase(room)) {
-                cbRoom.setSelectedIndex(i);
+
+        if (j == -1) {
+            JOptionPane.showMessageDialog(this, "USERNAME UNFOUND!");
+        } else {
+
+            txtHall.setText(dtm.getValueAt(j, 0).toString());
+            txtUser.setText(dtm.getValueAt(j, 1).toString());
+
+            String category = dtm.getValueAt(j, 2).toString();
+            for (int i = 0; i < cbCategory.getItemCount(); i++) { //combo box can display the previous choice 
+                if (cbCategory.getItemAt(i).equalsIgnoreCase(category)) {
+                    cbCategory.setSelectedIndex(i);
+                }
             }
-        }
-        
-        txtUser.setText(dtm.getValueAt(j, 1).toString());
-        
-        String career = dtm.getValueAt(j, 2).toString();
-        for (int i = 0; i < cbCareer.getItemCount(); i++) { //combo box can display the previous choice 
-            if (cbCareer.getItemAt(i).equalsIgnoreCase(career)) {
-                cbCareer.setSelectedIndex(i);
+
+            try {
+                Date date = new SimpleDateFormat("dd-MM-yyyy").parse((String) dtm.getValueAt(j, 3).toString());
+                dateChooser.setDate(date);
+            } catch (ParseException ex) {
+                java.util.logging.Logger.getLogger(Bookings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
+
+            try {
+                Date start = new SimpleDateFormat("HH:mm").parse((String) dtm.getValueAt(j, 4).toString());
+                startingSpin.setValue(start);
+            } catch (ParseException ex) {
+                java.util.logging.Logger.getLogger(Bookings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+
+            try {
+                Date end = new SimpleDateFormat("HH:mm").parse((String) dtm.getValueAt(j, 5).toString());
+                endingSpin.setValue(end);
+            } catch (ParseException ex) {
+                java.util.logging.Logger.getLogger(Bookings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+
+            txtDuration.setText(dtm.getValueAt(j, 6).toString());
+            txtDiscount.setText(dtm.getValueAt(j, 7).toString());
+            txtCost.setText(dtm.getValueAt(j, 8).toString());
         }
-        
-        try {
-            Date date = new SimpleDateFormat("dd-MM-yyyy").parse((String) dtm.getValueAt(j, 3).toString());
-            dateChooser.setDate(date);
-        } catch (ParseException ex) {
-            java.util.logging.Logger.getLogger(Bookings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        
-        try {
-            Date start = new SimpleDateFormat("HH:mm").parse((String) dtm.getValueAt(j, 4).toString());
-            startingSpin.setValue(start);
-        } catch (ParseException ex) {
-            java.util.logging.Logger.getLogger(Bookings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        
-        try {
-            Date end = new SimpleDateFormat("HH:mm").parse((String) dtm.getValueAt(j, 5).toString());
-            endingSpin.setValue(end);
-        } catch (ParseException ex) {
-            java.util.logging.Logger.getLogger(Bookings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        
-        txtDuration.setText(dtm.getValueAt(j, 6).toString());
-        txtDiscount.setText(dtm.getValueAt(j, 7).toString());
-        txtCost.setText(dtm.getValueAt(j, 8).toString());
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void startingSpinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startingSpinMouseClicked
@@ -564,6 +796,7 @@ public class Bookings extends javax.swing.JFrame {
                 numOfBookings--;
                 bookinglist.delete(selectedRow);
                 dtm.setRowCount(numOfBookings); //display at jtable
+                
 
             } else {
                 if (bookingTable.getSelectedRowCount() == 0) { //if table is empty
@@ -582,9 +815,9 @@ public class Bookings extends javax.swing.JFrame {
         try {
 
             int seectedRow = bookingTable.getSelectedRow();
-            String newroom = cbRoom.getSelectedItem().toString();
+            String newhall = txtHall.getText();
             String newuser = txtUser.getText();
-            String newcareer = cbCareer.getSelectedItem().toString();
+            String newcategory = cbCategory.getSelectedItem().toString();
             String newdate = dFormat.format(dateChooser.getDate());
             String newstart = tFormat.format(startingSpin.getValue());
             String newend = tFormat.format(endingSpin.getValue());
@@ -593,9 +826,9 @@ public class Bookings extends javax.swing.JFrame {
             double newcost = calculateCost(newstart, newend);
             String newstrcost = df.format(calculateCost(newstart, newend));
 
-            dtm.setValueAt(newroom, seectedRow, 0); //update data from row at jtable
+            dtm.setValueAt(newhall, seectedRow, 0); //update data from row at jtable
             dtm.setValueAt(newuser, seectedRow, 1);
-            dtm.setValueAt(newcareer, seectedRow, 2);
+            dtm.setValueAt(newcategory, seectedRow, 2);
             dtm.setValueAt(newdate, seectedRow, 3);
             dtm.setValueAt(newstart, seectedRow, 4);
             dtm.setValueAt(newend, seectedRow, 5);
@@ -604,7 +837,7 @@ public class Bookings extends javax.swing.JFrame {
             dtm.setValueAt(newstrcost, seectedRow, 8);
 
             // update into array of object
-            bookinglist.update(seectedRow, newroom, newuser, newdate, newstart, newend, newduration, newcost);
+            bookinglist.update(seectedRow, newhall, newuser, newdate, newstart, newend, newduration, newcost);
 
             clearfield();
         } catch (Exception ex) {
@@ -616,21 +849,30 @@ public class Bookings extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
 
-            String room = this.cbRoom.getSelectedItem().toString();
-            String user = this.txtUser.getText();
-            String career = cbCareer.getSelectedItem().toString();
-            String date = this.dFormat.format(dateChooser.getDate());
-            String start = this.tFormat.format(startingSpin.getValue());
-            String end = this.tFormat.format(endingSpin.getValue());
-            int duration = this.calculateDuration(start, end);
-            double discount = showDiscount();
-            double dcost = this.calculateCost(start, end);
-            String cost = df.format(dcost);// change to two decimal number
-            numOfBookings++;
-            bookinglist.add(room, user, date, start, end, duration, dcost); // add into array of object
+            String hall = this.txtHall.getText();
+            int check = hallslist.check(hall);
+            if (check == 1) {
 
-            dtm.setRowCount(numOfBookings - 1); //start from first row
-            dtm.addRow(new Object[]{room, user, career, date, start, end, duration, discount, cost});
+                String user = this.txtUser.getText();
+                String category = cbCategory.getSelectedItem().toString();
+                String date = this.dFormat.format(dateChooser.getDate());
+                String start = this.tFormat.format(startingSpin.getValue());
+                String end = this.tFormat.format(endingSpin.getValue());
+                int duration = this.calculateDuration(start, end);
+                double discount = showDiscount();
+                double dcost = this.calculateCost(start, end);
+                String cost = df.format(dcost);// change to two decimal number
+
+                numOfBookings++;
+                bookinglist.add(hall, user, date, start, end, duration, dcost); // add into array of object
+
+                dtm.setRowCount(numOfBookings - 1); //start from first row
+                dtm.addRow(new Object[]{hall, user, category, date, start, end, duration, discount, cost});
+
+            } else if (check == 0) {
+                JOptionPane.showMessageDialog(null, "Unregister Lecture Hall!");
+
+            }
 
             clearfield();
         } catch (Exception ex) {
@@ -668,23 +910,146 @@ public class Bookings extends javax.swing.JFrame {
         txtDiscount.setText(strdiscount);
         txtCost.setText(strcost);
     }//GEN-LAST:event_btnCalculateActionPerformed
-    
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        // TODO add your handling code here:
+        jPanel1.setVisible(false);
+        jPanel2.setVisible(true);
+    }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        // TODO add your handling code here:
+        jPanel2.setVisible(false);
+        jPanel1.setVisible(true);
+    }//GEN-LAST:event_jMenu2MouseClicked
+
+    private void cbCollegeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCollegeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCollegeActionPerformed
+
+    private void txtCapacityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCapacityActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCapacityActionPerformed
+
+    private void hallTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hallTableMouseClicked
+        // TODO add your handling code here:
+        rowH = hallTable.getSelectedRow(); //GET COLUMN AND ROW
+        columnH = hallTable.getColumnCount();
+        System.out.println(row + ", " + column);
+
+        String college = dtmH.getValueAt(rowH, 0).toString();
+        for (int i = 0; i < cbCollege.getItemCount(); i++) { //combo box can display the previous choice 
+            if (cbCollege.getItemAt(i).equalsIgnoreCase(college)) {
+                cbCollege.setSelectedIndex(i);
+            }
+        }
+
+        txtVenue.setText(dtmH.getValueAt(rowH, 1).toString());
+        txtLevel.setText(dtmH.getValueAt(row, 2).toString());
+        txtCapacity.setText(dtmH.getValueAt(row, 3).toString());
+        txtPrice.setText(dtmH.getValueAt(row, 4).toString());
+
+    }//GEN-LAST:event_hallTableMouseClicked
+
+    private void btnAddHallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddHallActionPerformed
+        // TODO add your handling code here:
+        try {
+
+            String college = this.cbCollege.getSelectedItem().toString();
+            String venue = this.txtVenue.getText();
+
+            int level = Integer.parseInt(txtLevel.getText());
+            int capacity = Integer.parseInt(txtCapacity.getText());
+            double price = Double.parseDouble(txtPrice.getText());
+
+            numOfHall++;
+            hallslist.add(college, venue, level, capacity, price);
+
+            dtmH.setRowCount(numOfHall - 1); //start from first row
+            dtmH.addRow(new Object[]{college, venue, level, capacity, price});
+
+            clearHallfield();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Missing Data!");
+        }
+    }//GEN-LAST:event_btnAddHallActionPerformed
+
+    private void btnDelHallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelHallActionPerformed
+        // TODO add your handling code here:
+        int dialogButton = JOptionPane.YES_NO_OPTION; //to get yes and no buttons
+        int dialogResult = JOptionPane.showConfirmDialog(this, "Delete this data", "Delete", dialogButton);
+        if (dialogResult == 0) { // YES FOR DELETE
+            clearHallfield();
+            if (hallTable.getSelectedRowCount() == 1) {
+
+                dtmH.removeRow(hallTable.getSelectedRow()); //table remove data
+                int selectedRow = hallTable.getSelectedRow();
+                numOfHall--;
+                hallslist.delete(selectedRow);
+                dtmH.setRowCount(numOfHall); //display at jtable
+
+            } else {
+                if (hallTable.getSelectedRowCount() == 0) { //if table is empty
+                    JOptionPane.showMessageDialog(this, "THIS IS EMPTY!");
+                } else { //table is not empty but no or multiple row being choosen
+                    JOptionPane.showMessageDialog(this, "Please Select Single Row For Delete.");
+                }
+
+            }
+
+        }
+    }//GEN-LAST:event_btnDelHallActionPerformed
+
+    private void btnUpdateHallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateHallActionPerformed
+        // TODO add your handling code here:
+        try {
+
+            int seectedRow = hallTable.getSelectedRow();
+            String newcollege = cbCollege.getSelectedItem().toString();
+            String newvenue = txtVenue.getText();
+            int newlevel = Integer.parseInt(txtLevel.getText());
+            int newcapacity = Integer.parseInt(txtCapacity.getText());
+            double newprice = Double.parseDouble(txtPrice.getText());
+
+            dtmH.setValueAt(newcollege, seectedRow, 0); //update data from row at jtable
+            dtmH.setValueAt(newvenue, seectedRow, 1);
+            dtmH.setValueAt(newlevel, seectedRow, 2);
+            dtmH.setValueAt(newcapacity, seectedRow, 3);
+            dtmH.setValueAt(newprice, seectedRow, 4);
+
+            // update into array of object
+            hallslist.update(seectedRow, newcollege, newvenue, newlevel, newcapacity, newprice);
+
+            clearHallfield();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Missing Data!");
+        }
+    }//GEN-LAST:event_btnUpdateHallActionPerformed
+
+    private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
+        // TODO add your handling code here:
+        Login lg = new Login();
+        lg.show();
+
+        dispose();
+    }//GEN-LAST:event_btnLogoutMouseClicked
+
     public int calculateDuration(String start, String end) {
         start = tFormat.format(startingSpin.getValue());
         end = tFormat.format(endingSpin.getValue());
-        
+
         String[] strstart = start.split(":"); //10:30 -> 10 30 
         int[] time1 = Arrays.stream(strstart).mapToInt(Integer::parseInt).toArray(); //time1[0] = hours time1[1]=mins
         String[] strend = end.split(":");
         int[] time2 = Arrays.stream(strend).mapToInt(Integer::parseInt).toArray();
-        
+
         if (8 <= time2[0] && time2[0] <= 22) {
-            
+
         } else {
             JOptionPane.showMessageDialog(null, "ONLY AVAILABLE FROM 8:00am to 11:00pm!");
         }
         if (8 <= time1[0] && time1[0] <= 22) {
-            
+
         } else {
             JOptionPane.showMessageDialog(null, "ONLY AVAILABLE FROM 8:00am to 11:00pm!");
         }
@@ -692,33 +1057,32 @@ public class Bookings extends javax.swing.JFrame {
         int duration = hour + (time2[1] - time1[1]);
         return duration;
     }
-    
+
     public double calculateCost(String start, String end) {
         start = tFormat.format(startingSpin.getValue());
         end = tFormat.format(endingSpin.getValue());
-        
+        String hall = this.txtHall.getText();
+
         String[] strstart = start.split(":");
         int[] time1 = Arrays.stream(strstart).mapToInt(Integer::parseInt).toArray();
         String[] strend = end.split(":");
         int[] time2 = Arrays.stream(strend).mapToInt(Integer::parseInt).toArray();
-        
+
         int hour = (time2[0] - time1[0]) * 60;
         int duration = hour + (time2[1] - time1[1]);
         double fee = 0, discount = 0;
-        
-        Rooms room = new Rooms(cbRoom.getSelectedItem().toString(), fee);
-        fee = room.getPrice(cbRoom.getSelectedItem().toString());
-        
-        User users = new User(txtUser.getText(), cbCareer.getSelectedItem().toString(), discount);
-        discount = users.getDiscount(cbCareer.getSelectedItem().toString());
-        double cost = duration * fee * ((100 - discount) / 100);
+        fee = hallslist.search(hall);
+
+        User users = new User(txtUser.getText(), cbCategory.getSelectedItem().toString(), discount);
+        discount = users.getDiscount(cbCategory.getSelectedItem().toString());
+        double cost = duration * fee / 60 * ((100 - discount) / 100);
         return cost;
     }
-    
+
     public double showDiscount() {
         double discount = 0;
-        User users = new User(txtUser.getText(), cbCareer.getSelectedItem().toString(), discount); //inheritance 
-        discount = users.getDiscount(cbCareer.getSelectedItem().toString());
+        User users = new User(txtUser.getText(), cbCategory.getSelectedItem().toString(), discount); //inheritance 
+        discount = users.getDiscount(cbCategory.getSelectedItem().toString());
         return discount;
     }
 
@@ -736,21 +1100,21 @@ public class Bookings extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                    
+
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(Bookings.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(Bookings.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(Bookings.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Bookings.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -768,15 +1132,19 @@ public class Bookings extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable bookingTable;
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnAddHall;
     private javax.swing.JButton btnCalculate;
+    private javax.swing.JButton btnDelHall;
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnLogout;
+    private javax.swing.JMenu btnLogout;
     private javax.swing.JButton btnReser;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JComboBox<String> cbCareer;
-    private javax.swing.JComboBox<String> cbRoom;
+    private javax.swing.JButton btnUpdateHall;
+    private javax.swing.JComboBox<String> cbCategory;
+    private javax.swing.JComboBox<String> cbCollege;
     private com.toedter.calendar.JDateChooser dateChooser;
     private javax.swing.JSpinner endingSpin;
+    private javax.swing.JTable hallTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -784,26 +1152,49 @@ public class Bookings extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner startingSpin;
+    private javax.swing.JTextField txtCapacity;
     private javax.swing.JTextField txtCost;
     private javax.swing.JTextField txtDiscount;
     private javax.swing.JTextField txtDuration;
+    private javax.swing.JTextField txtHall;
+    private javax.swing.JTextField txtLevel;
+    private javax.swing.JTextField txtPrice;
     private javax.swing.JTextField txtSearch;
     private javax.swing.JButton txtUpdate;
     private javax.swing.JTextField txtUser;
+    private javax.swing.JTextField txtVenue;
     // End of variables declaration//GEN-END:variables
 
 }

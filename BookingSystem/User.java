@@ -9,19 +9,19 @@ package BookingSystem;
  */
 public class User {
 
-    static String name, Career;
+    static String name, category;
     static double discount;
 
-    public User(String name, String Career, double discount) {
+    public User(String name, String category, double discount) {
         this.name = name;
-        this.Career = Career;
+        this.category = category;
         this.discount = discount;
     }
 
-    public double getDiscount(String Career) {
-        if (Career.equalsIgnoreCase("Lecturer")) {
+    public double getDiscount(String category) {
+        if (category.equalsIgnoreCase("UUM Staff")) {
             discount = 5.0;
-        } else if (Career.equalsIgnoreCase("Student")) {
+        } else if (category.equalsIgnoreCase("Non UUM Staff")) {
             discount = 0.0;
         }
 
