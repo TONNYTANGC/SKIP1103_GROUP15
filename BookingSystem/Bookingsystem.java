@@ -854,9 +854,7 @@ public class Bookingsystem extends javax.swing.JFrame {
             hallslist.registeredHall(hall);
             venueH = new DefaultComboBoxModel(hall);
             cbvenue.setModel(venueH);
-        }
-
-        else if (Room.equals("TUTORIAL ROOM")) {
+        } else if (Room.equals("TUTORIAL ROOM")) {
             String[] room = new String[numOfHall];
             tutorialroomlist.registeredRoom(room);
             venueR = new DefaultComboBoxModel(room);
@@ -1233,12 +1231,11 @@ public class Bookingsystem extends javax.swing.JFrame {
         if (dialogResult == 0) { // YES FOR DELETE
             clearHallfield();
             if (hallTable.getSelectedRowCount() == 1) {
-
-                dtmH.removeRow(hallTable.getSelectedRow()); //table remove data
                 int selectedRow = hallTable.getSelectedRow();
+                dtmH.setRowCount(numOfHall); //display at jtable
+                dtmH.removeRow(hallTable.getSelectedRow()); //table remove data
                 numOfHall--;
                 hallslist.delete(selectedRow);
-                dtmH.setRowCount(numOfHall); //display at jtable
 
             } else {
                 if (hallTable.getSelectedRowCount() == 0) { //if table is empty
@@ -1330,12 +1327,11 @@ public class Bookingsystem extends javax.swing.JFrame {
         if (dialogResult == 0) { // YES FOR DELETE
             clearHallfield();
             if (roomTable.getSelectedRowCount() == 1) {
-
-                dtmR.removeRow(roomTable.getSelectedRow()); //table remove data
                 int selectedRow = roomTable.getSelectedRow();
+                dtmR.setRowCount(numOfRoom); //display at jtable
+                dtmR.removeRow(roomTable.getSelectedRow()); //table remove data
                 numOfRoom--;
                 tutorialroomlist.delete(selectedRow);
-                dtmR.setRowCount(numOfRoom); //display at jtable
 
             } else {
                 if (roomTable.getSelectedRowCount() == 0) { //if table is empty
