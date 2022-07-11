@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author User
- */
+ */ 
 public class Login extends javax.swing.JFrame {
 
     /**
@@ -140,7 +140,7 @@ public class Login extends javax.swing.JFrame {
         if (username.contains("admin") && password.contains("admin")) {
             txtUser.setText(null);
             jPassword.setText(null);
-            Bookings c = new Bookings();
+            Bookingsystem c = new Bookingsystem();
             c.show();
             c.otherinterface();
            

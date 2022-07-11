@@ -9,8 +9,8 @@ package BookingSystem;
  */
 public class User {
 
-    static String name, category;
-    static double discount;
+    private String name, category;
+    private double discount;
 
     public User(String name, String category, double discount) {
         this.name = name;

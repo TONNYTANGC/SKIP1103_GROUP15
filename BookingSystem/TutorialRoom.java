@@ -8,11 +8,11 @@ package BookingSystem;
  *
  * @author User
  */
-public class Hall extends Room {
+public class TutorialRoom extends Room{
 
-    public Hall(String college, String venue, int level, int capacity, double price) {
+    public TutorialRoom(String college, String venue, int level, int capacity, double price) {
         super(college, venue, level, capacity, price);
-    }
+    }  
 
     @Override
     public void setPrice(double price) {
@@ -38,7 +38,5 @@ public class Hall extends Room {
     public void setCollege(String college) {
         super.setCollege(college); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
-
     
-
 }

@@ -8,18 +8,18 @@ package BookingSystem;
  *
  * @author User
  */
-public class HallList {
+public class TutorialRoomList {
 
-    private static Hall[] hallslist;
+    private static TutorialRoom[] tutorialroomlist;
     private static int count;
 
-    public HallList(int n) {
-        hallslist = new Hall[n];
+    public TutorialRoomList(int n) {
+        tutorialroomlist = new TutorialRoom[n];
         count = 0;
     }
 
     public void add(String college, String venue, int level, int capacity, double price) {
-        hallslist[count] = new Hall(college, venue, level, capacity, price);
+        tutorialroomlist[count] = new TutorialRoom(college, venue, level, capacity, price);
         count++;
     }
 
@@ -29,24 +29,23 @@ public class HallList {
             if (i == row) {// if the index is the removal element index    
                 continue;
             }
-            hallslist[k++] = hallslist[i];// if the index is not the removal element index
-            
+            tutorialroomlist[k++] = tutorialroomlist[i];// if the index is not the removal element index
+           
         }
         count--;
-       
     }
 
     public void update(int row, String college, String venue, int level, int capacity, double price) {
-        hallslist[row].setCapacity(capacity);
-        hallslist[row].setVenue(venue);
-        hallslist[row].setLevel(level);
-        hallslist[row].setCapacity(capacity);
-        hallslist[row].setPrice(price);
+        tutorialroomlist[row].setCapacity(capacity);
+        tutorialroomlist[row].setVenue(venue);
+        tutorialroomlist[row].setLevel(level);
+        tutorialroomlist[row].setCapacity(capacity);
+        tutorialroomlist[row].setPrice(price);
     }
-    
-    public void registeredHall(String[] hall) {
+
+    public void registeredRoom(String[] room) {
         for (int i = 0; i < count; i++) {
-            hall[i] = hallslist[i].getVenue();
+            room[i] = tutorialroomlist[i].getVenue();
         }
     }
 
@@ -54,8 +53,8 @@ public class HallList {
 
         double price = 0;
         for (int i = 0; i < count; i++) {
-            if (hallslist[i].getVenue().equalsIgnoreCase(venue)) {
-                price = hallslist[i].getPrice();
+            if (tutorialroomlist[i].getVenue().equalsIgnoreCase(venue)) {
+                price = tutorialroomlist[i].getPrice();
             }
         }
 
@@ -66,11 +65,10 @@ public class HallList {
         int j = 0;
 
         for (int i = 0; i < count; i++) {
-            if (hallslist[i].getVenue().equalsIgnoreCase(venue)) {
+            if (tutorialroomlist[i].getVenue().equalsIgnoreCase(venue)) {
                 j = 1;
             }
         }
         return j;
     }
-
 }

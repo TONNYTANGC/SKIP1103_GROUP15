@@ -10,13 +10,15 @@ package BookingSystem;
  */
 public class Booking {
 
-    String room, user, date, start, end;
-    int duration;
-    double cost;
+    private String room, venue, user, category, date, start, end;
+    private int duration;
+    private double cost;
 
-    public Booking(String room, String user, String date, String start, String end, int duration, double cost) {
+    public Booking(String room, String venue, String user, String category, String date, String start, String end, int duration, double cost) {
         this.room = room;
+        this.venue = venue;
         this.user = user;
+        this.category = category;
         this.date = date;
         this.start = start;
         this.end = end;
@@ -28,8 +30,16 @@ public class Booking {
         return room;
     }
 
+    public String getVenue() {
+        return venue;
+    }
+
     public String getUser() {
         return user;
+    }
+
+    public String getCategory() {
+        return category;
     }
 
     public String getDate() {
@@ -56,8 +66,16 @@ public class Booking {
         this.room = room;
     }
 
+    public void setVenue(String venue) {
+        this.venue = venue;
+    }
+
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public void setDate(String date) {
@@ -79,5 +97,7 @@ public class Booking {
     public void setCost(double cost) {
         this.cost = cost;
     }
+
+    
 
 }
